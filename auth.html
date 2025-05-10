@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ 'Register' if auth_type == 'register' else 'Login' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+    /* Reset some default browser styles */
+body, h1, h2, h3, p, input, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: Arial, sans-serif;
+    vertical-align: baseline;
+}
+
+/* Set a background color and center the content */
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the form */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Style for headings */
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Style for input fields */
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style for the submit button */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Style for links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Message styling */
+.message {
+    margin-bottom: 15px;
+    color: red;
+}
+
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ 'Register' if auth_type == 'register' else 'Login' }}</h2>
+        {% if msg %}
+            <p class="message">{{ msg }}</p>
+        {% endif %}
+        <form method="POST">
+            {% if auth_type == 'register' %}
+                <input type="text" name="username" placeholder="Username" required><br>
+            {% endif %}
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button type="submit">{{ 'Register' if auth_type == 'register' else 'Login' }}</button>
+        </form>
+        <p>
+            {% if auth_type == 'register' %}
+                Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+            {% else %}
+                Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+            {% endif %}
+        </p>
+    </div>
+</body>
+</html>
+This template includes the CSS file and structures the authentication form accordingly.
+
+Running the Flask Application:
+
+Ensure your Flask application (app.py) is set up to serve static files and render templates correctly. Here's a minimal example:
+
+python
+Copy
+Edit
+from flask import Flask, render_template, request, redirect, url_for, session
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    msg = ''
+    if request.method == 'POST':
+        # Handle login logic here
+        pass
+    return render_template('auth.html', msg=msg, auth_type='login')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    msg = ''
+    if request.method == 'POST':
+        # Handle registration logic here
+        pass
+    return render_template('auth.html', msg=msg, auth_type='register')
+
+if __name__ == '__main__':
+    app.run(debug=True)

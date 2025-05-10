@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Your existing CSS styles */
+          /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px; /* Compact width */
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #5C3D2E; /* Brown color */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #5C3D2E; /* Brown color */
+            margin: 10px 0;
+        }
+
+        /* Delivery Form (Billing Details) */
+        .delivery-form {
+            margin-bottom: 30px; /* Add space between delivery form and order summary */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Reduced spacing */
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        /* Ensure all input boxes and dropdowns have the same width */
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box; /* Ensure padding and border are included in the width */
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #5C3D2E; /* Brown color */
+            outline: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px; /* Reduced gap */
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Ensure dropdowns and text inputs have the same height */
+        .form-group select {
+            appearance: none; /* Remove default dropdown arrow */
+            background: white url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235C3D2E'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 10px center;
+            background-size: 12px;
+            padding-right: 30px; /* Add space for the custom dropdown arrow */
+        }
+
+        /* Order Summary (Payment Total) */
+        .order-summary {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px; /* Add space between order summary and continue button */
+        }
+
+        .order-summary .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px; /* Reduced spacing */
+            padding-bottom: 10px; /* Reduced spacing */
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-summary .item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .order-summary .item p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .order-summary .item strong {
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .order-summary .total {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #5C3D2E; /* Brown color */
+            margin-top: 15px;
+        }
+
+        /* Continue Button */
+        .continue-btn {
+            width: 100%;
+            padding: 12px;
+            background: #5C3D2E; /* Brown color */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            background: #4A2F24; /* Darker brown on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Delivery Form (Billing Details) -->
+        <div class="delivery-form">
+            <h2>Delivery Address</h2>
+            <form action="{{ url_for('place_order', user_id=user_id) }}" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="First Name" value="{{ user_data.first_name | default('') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Last Name" value="{{ user_data.last_name | default('') }}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" value="{{ user_data.email | default('') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" placeholder="Phone" value="{{ user_data.phone | default('') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Address" value="{{ user_data.address | default('') }}" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" placeholder="City" value="{{ user_data.city | default('') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select id="state" name="state" required>
+                            <option value="">Select State</option>
+                            <option value="State1" {% if user_data.state == "State1" %}selected{% endif %}>Mahrashtra</option>
+                            <option value="State2" {% if user_data.state == "State2" %}selected{% endif %}>Kerala</option>
+                            <option value="State3" {% if user_data.state == "State3" %}selected{% endif %}>Goa</option>
+                            <option value="State3" {% if user_data.state == "State3" %}selected{% endif %}>Gujarat</option>
+                            <option value="State3" {% if user_data.state == "State3" %}selected{% endif %}>Punjab</option>
+                            <option value="State3" {% if user_data.state == "State3" %}selected{% endif %}>Madhya Pradesh</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zip_code">Zip Code</label>
+                    <input type="text" id="zip_code" name="zip_code" placeholder="Zip Code" value="{{ user_data.zip_code | default('') }}" pattern="[0-9]+" title="Please enter digits only">
+                </div>
+                <div class="form-group">
+                    <label for="payment_method">Payment Method</label>
+                    <select id="payment_method" name="payment_method" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="COD" {% if user_data.payment_method == "COD" %}selected{% endif %}>Cash on Delivery</option>
+                        <option value="Online" {% if user_data.payment_method == "Online" %}selected{% endif %}>Online Payment</option>
+                    </select>
+                </div>
+
+                <!-- Order Summary (Payment Total) -->
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    {% for item in cart_items %}
+                    <div class="item">
+                        <p><strong>{{ item['product_name'] }}</strong></p>
+                        <p>₹{{ item['price'] }} x {{ item['quantity'] }}</p>
+                    </div>
+                    {% endfor %}
+                    <div class="item">
+                        <p><strong>Subtotal</strong></p>
+                        <p>₹{{ subtotal }}</p>
+                    </div>
+                    <div class="item">
+                        <p><strong>Shipping</strong></p>
+                        <p>₹{{ shipping }}</p>
+                    </div>
+                    <div class="item total">
+                        <p><strong>Total</strong></p>
+                        <p>₹{{ total }}</p>
+                    </div>
+                </div>
+
+                <!-- Continue Button -->
+                <button type="submit" class="continue-btn">Continue</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

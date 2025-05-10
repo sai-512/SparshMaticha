@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            width: 450px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #6D4C41;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .signin-btn:hover {
+            background-color: #5A2D0C;
+        }
+
+        .msg {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="{{ url_for('register') }}" method="post" class="login-box" onsubmit="return validateForm()">
+        <h1>Create Account</h1>
+
+        {% if msg %}
+            <div class="msg">{{ msg }}</div>
+        {% endif %}
+
+        <input type="text" placeholder="First Name" name="First_Name" id="First_Name" class="input-box" required pattern="[A-Za-z]+" title="Only letters allowed">
+
+        <input type="text" placeholder="Last Name" name="Last_Name" id="Last_Name" class="input-box" required pattern="[A-Za-z]+" title="Only letters allowed">
+
+        <input type="email" placeholder="Email" name="Email" id="Email" class="input-box" required>
+
+        <input type="password" placeholder="Password" name="Password" id="Password" class="input-box" required 
+        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+        title="At least 8 characters, one uppercase, one lowercase, one number, and one special character">
+
+        <input type="text" placeholder="Address" name="Address" id="Address" class="input-box" required>
+
+        <input type="tel" placeholder="Phone Number" name="Phone_No" id="Phone_No" class="input-box" required pattern="[0-9]{10}" title="Enter a valid 10-digit phone number">
+
+        <button type="submit" class="signin-btn">Create Account</button>
+
+        <p class="register-link">Already have an account? <a href="{{ url_for('login') }}">Sign in here</a></p>
+    </form>
+
+    <script>
+        function validateForm() {
+            let phone = document.getElementById("Phone_No").value;
+            if (phone.length !== 10) {
+                alert("Phone number must be exactly 10 digits.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>

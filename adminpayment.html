@@ -1,0 +1,60 @@
+{% extends "adminlayout.html" %}
+
+{% block body %}
+<div class="container-fluid mt-4" style="margin-left: 260px; width: calc(100% - 260px); min-height: 100vh; padding-right: 20px;">
+
+    <!-- ✅ Page Title -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="text-dark">Payment Records</h3>
+    </div>
+
+    <!-- ✅ Payments Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h5 class="mb-0">Payment Transactions</h5>
+        </div>
+        <div class="card-body">
+            <table id="paymentTable" class="table table-hover table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>User Name</th>
+                        <th>Payment Date</th>
+                        <th>Amount (₹)</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment[0] }}</td>  <!-- Payment ID -->
+                        <td>{{ payment[1] }} {{ payment[2] }}</td>  <!-- First Name + Last Name -->
+                        <td>{{ payment[3] }}</td>  <!-- Payment Date -->
+                        <td>₹{{ payment[4] }}</td>  <!-- Amount -->
+                        <td>{{ payment[5] }}</td>  <!-- Payment Method -->
+                        <td>{{ payment[6] }}</td>  <!-- Status -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- ✅ Enable DataTables -->
+<script>
+$(document).ready(function() {
+    $('#paymentTable').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": false,
+        "autoWidth": false
+    });
+});
+</script>
+
+{% endblock %}

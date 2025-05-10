@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop | Sparsh Maticha</title>
+
+    <!-- Bootstrap & CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+ /* Container & Card Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  border-radius: 12px;
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 2rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Title */
+.product-title {
+  font-size: 1.5rem;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: capitalize; /* Capitalize each word */
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+/* Price and Other Highlighted Text */
+.text-darkbrown {
+  color: #8B4513;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+/* Category Info */
+.category-info,
+.category-info strong {
+  text-transform: capitalize;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Product Description */
+.product-description {
+  text-transform: capitalize;
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Labels */
+label.fw-bold {
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+/* Product Image */
+.product-image {
+  max-height: 400px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Add to Cart Button */
+.btn-brown {
+  display: inline-block;
+  background-color: #8B4513;  /* Brown color */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  width: 75%; /* Consistent width */
+  text-align: center;
+  font-size: 1rem;
+}
+
+.btn-brown:hover {
+  background-color: #7A3E12; /* Darker brown on hover */
+}
+
+/* Form Control for Quantity Input */
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 75%;
+}
+
+/* Utility Classes */
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+.w-75 {
+  width: 75% !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.shadow-lg {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+ </style>
+</head>
+<body>
+
+    <!-- Header with Navigation -->
+    <div class="top-header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- Logo -->
+                     <!--    <div class="site-logo">
+                            <a href="{{ url_for('index') }}">
+                                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Sparsh Maticha">
+                            </a>
+                        </div> -->
+
+                        <!-- Navigation Menu -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a href="{{ url_for('index') }}">Home</a></li>
+                                <li><a href="{{ url_for('about') }}">About</a></li>
+                                <li class="current-list-item"><a href="{{ url_for('shop', category_id='all') }}">Shop</a></li>
+                                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                                <li>
+                                    <a href="{{ url_for('cat') }}" class="shopping-cart">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                    <a href="{{ url_for('login') }}" class="profile-icon">
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb Section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Handcrafted with Love</p>
+                        <h1>Shop</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card shadow-lg p-4">
+        <div class="row">
+          <!-- Product Image with Border -->
+          <div class="col-md-6 text-center">
+            <img src="{{ url_for('static', filename=product.Product_image) }}" 
+                 alt="{{ product.Product_Name }}" 
+                 class="img-fluid border border-dark rounded p-2 product-image">
+          </div>
+
+          <!-- Product Details -->
+          <div class="col-md-6">
+            <h2 class="product-title mb-3">{{ product.Product_Name }}</h2>
+            <h4 class="text-darkbrown">₹{{ product.Price }}</h4>
+
+            <label class="fw-bold">Size:</label>
+            <p class="text-darkbrown">{{ product.size }}</p>
+
+            <!-- Quantity Input -->
+            <label for="quantity" class="mt-3 fw-bold">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" class="form-control w-75">
+
+            <!-- Add to Cart Button -->
+            <a href="{{ url_for('add_to_cart', Product_id=product.Product_id) }}" 
+               class="btn btn-brown mt-3 w-75">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </a>
+
+            <!-- Category Info - Display Category Name -->
+            <p class="mt-3 category-info"><strong>Category:</strong> {{ product.category_name }}</p>
+
+            <!-- Product Description -->
+            <p class="text-muted mt-3 product-description">{{ product.Description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- footer -->
+    <div class="footer-area mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Sparsh Maticha. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap & JavaScript -->
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+</html>

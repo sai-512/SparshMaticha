@@ -1,0 +1,69 @@
+{% extends "adminlayout.html" %}
+{% block body %}
+
+<div class="container-fluid mt-4" style="margin-left: 260px; width: calc(100% - 260px); min-height: 100vh; padding-right: 20px;">
+
+    <!-- ✅ Page Title -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="text-black">Download Reports</h3>
+    </div>
+
+    <!-- ✅ Reports Section -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-black text-white text-center">
+            <h5 class="mb-0">Reports</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-center mb-3">
+                <a href="/user_report" class="btn btn-primary me-2">Users Report</a>
+                <a href="/products_report" class="btn btn-primary">Products Report</a>
+            </div>
+
+            <!-- Category-wise Report -->
+            <h5 class="text-center">Category-wise Report</h5>
+            <form action='/download' method='POST' class="text-center">
+                <div class="input-group mb-3 w-50 mx-auto">
+                    <label class="input-group-text bg-primary text-white" for='catreport'>Category</label>
+                    <select id='catreport' name='catreport' class="form-select">
+                        {% for catreport in catreport %}
+                            <option value="{{ catreport[0] }}">{{ catreport[1] }}</option>  
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Download Report</button>
+            </form>
+
+            <!-- Size-wise Report -->
+            <h5 class="text-center mt-4">Size-wise Report</h5>
+            <form action='/downloadsize' method='POST' class="text-center">
+                <div class="input-group mb-3 w-50 mx-auto">
+                    <label class="input-group-text bg-primary text-white" for='size'>Size</label>
+                    <select id='size' name='size' class="form-select">        
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>  
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Download Report</button>
+            </form>
+
+            <!-- Date-wise Report -->
+            <h5 class="text-center mt-4">Date-wise Report</h5>
+            <form action="/download/report/pdf" method="POST" class="text-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <label for="fdate" class="form-label">From Date</label>
+                        <input type="date" id="fdate" name="fdate" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tdate" class="form-label">To Date</label>
+                        <input type="date" id="tdate" name="tdate" class="form-control">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Download Report</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

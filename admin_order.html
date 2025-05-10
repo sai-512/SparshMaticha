@@ -1,0 +1,59 @@
+{% extends "adminlayout.html" %}
+{% block body %}
+
+<div class="container-fluid mt-4" style="margin-left: 260px; width: calc(100% - 260px); min-height: 100vh; padding-right: 20px;">
+
+    <!-- ✅ Page Title -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="text-dark">Manage Orders</h3>
+    </div>
+
+    <!-- ✅ Orders Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h5 class="mb-0">Order List</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Total Amount (₹)</th>
+                        <th>Order Status</th>
+                        <th>Date</th>
+                        <th>Update Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order[0] }}</td>
+                        <td>{{ order[1] }} {{ order[2] }}</td>
+                        <td>₹{{ order[3] }}</td>
+                        <td><span class="badge bg-primary">{{ order[4] }}</span></td>
+                        <td>{{ order[5] }}</td>
+                        <td>
+                        <form method="POST" action="{{ url_for('update_order_status', order_id=order[0]) }}" class="d-flex">
+                            <select name="status" class="form-control me-2" required>
+                            <option value="Pending" {% if order[4] == "Pending" %}selected{% endif %}>Pending</option>
+                            <option value="Processing" {% if order[4] =="Processing" %}selected{% endif %}>Processing</option>
+                            <option value="Completed" {% if order[4] =="Completed" %}selected{% endif %}>Completed</option>
+                            <option value="Cancelled" {% if order[4] == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-sync-alt"></i> Update
+                            </button>
+                        </form>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

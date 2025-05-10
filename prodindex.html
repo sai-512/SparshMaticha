@@ -1,0 +1,121 @@
+{% extends "adminlayout.html" %}
+{% block body %}
+
+<div class="container-fluid mt-4" style="margin-left: 260px; width: calc(100% - 260px); min-height: 100vh; padding-right: 20px;">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="text-dark">Product Management</h3>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white text-center">
+            <h5 class="mb-0">Add New Product</h5>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ url_for('add_product') }}" method="POST" enctype="multipart/form-data">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Product Name</label>
+                        <input type="text" class="form-control" name="Product_Name" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Category</label>
+                        <select name="category_id" class="form-control" required>
+                            <option value="">Select a category</option>
+                            {% for cat in cat %}
+                            <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea class="form-control" name="Description" required></textarea>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Price</label>
+                        <input type="text" class="form-control" name="Price" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Stock Quantity</label>
+                        <input type="text" class="form-control" name="Stock_quantity" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Product Image</label>
+                        <input type="file" class="form-control" name="Product_image" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Select Size</label>
+                        <select name="size" id="size" class="form-control">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mt-4 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">Save Product</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white text-center">
+            <h5 class="mb-0">Product List</h5>
+        </div>
+        <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Image</th>
+                        <th>Size</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product[0] }}</td>
+                        <td>{{ product[1] }}</td>
+                        <td>{{ product[2] }}</td>
+                        <td>{{ product[3] }}</td>
+                        <td>{{ product[4] }}</td>
+                        <td>{{ product[5] }}</td>
+                        <td>
+                            <img src="{{ url_for('static', filename=product[6]) }}" width="80" class="img-thumbnail">
+                        </td>
+                        <td>{{ product[7] }}</td>
+                        <td>
+                            <a href="{{ url_for('edit', pid=product[0]) }}" class="btn btn-sm btn-secondary">Edit</a>
+                            <form action="{{ url_for('delete_product', product_id=product[0]) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

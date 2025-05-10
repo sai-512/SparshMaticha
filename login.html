@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+             .navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centers the nav links */
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .login-box {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            box-sizing: border-box;
+            border: 2px solid #6D4C41;
+        }
+
+        .login-box h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background: #f9f9f9;
+            transition: 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: #6D4C41;
+            outline: none;
+            background: #fff;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #6D4C41;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .signin-btn:hover {
+            background-color: #5A2D0C;
+        }
+
+        .forgot-password {
+            font-size: 14px;
+            color: #6D4C41;
+            text-decoration: none;
+            display: block;
+            margin-top: 12px;
+        }
+
+        .register-link {
+            font-size: 14px;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .register-link a {
+            color: #6D4C41;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .footer-area {
+    background-color: #222; /* Dark background */
+    color: white; /* White text */
+    padding: 20px 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-area p {
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="index">Home</a>
+            <a href="about">About</a>
+            <a href="shop">Shop</a>
+            <a href="pages">Pages</a>
+            <a href="profile">Profile</a>
+        </div>
+    </div>
+
+    
+    <div class="login-container">
+        <form action="{{ url_for('login') }}" method="post" class="login-box">
+            <div class="msg">{{ msg }}</div>
+            <h1>Login</h1>
+            <input type="text" placeholder="Enter your email" name="Email" id="Email" class="input-box" required>
+            <input type="password" placeholder="Enter your password" name="Password" id="Password" class="input-box" required>
+            <a href="forgetpassword.html" class="forgot-password">Forgot your password?</a>
+            <button type="submit" class="signin-btn">Sign in</button>
+            <p class="register-link">Don't have an account? <a href="{{ url_for('register') }}">Create one</a></p>
+        </form>
+    </div>
+
+
+    <!-- ✅ Footer -->
+    <div class="footer-area mt-5">
+        <div class="container text-center">
+           
+            <p>&copy; 2024 Sparsh Maticha. Handmade with care, inspired by tradition.</p>
+
+        </div>
+    </div>
+
+    <!-- ✅ Bootstrap & JavaScript -->
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+
+</body>
+</html>

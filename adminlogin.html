@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            box-sizing: border-box;
+            border: 2px solid #6D4C41;
+        }
+
+        .login-box h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background: #f9f9f9;
+            transition: 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: #6D4C41;
+            outline: none;
+            background: #fff;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #6D4C41;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .signin-btn:hover {
+            background-color: #5A2D0C;
+        }
+
+        .forgot-password {
+            font-size: 14px;
+            color: #6D4C41;
+            text-decoration: none;
+            display: block;
+            margin-top: 12px;
+        }
+
+        .register-link {
+            font-size: 14px;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .register-link a {
+            color: #6D4C41;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('adminlogin') }}" method="post" class="login-box">
+        {% if msg %}
+            <p style="color: red;">{{ msg }}</p>
+        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            <p style="color: black;">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+        <h1>Login</h1>
+        <input type="email" placeholder="Enter your email" name="Email" id="Email" class="input-box" required>
+        <input type="password" placeholder="Enter your password" name="Password" id="Password" class="input-box" required>
+        <a href="{{ url_for('forgotpassword') }}" class="forgot-password">Forgot your password?</a>
+        <button type="submit" class="signin-btn">Sign in</button>
+        <p class="register-link">Don't have an account? <a href="{{ url_for('adminregister') }}">Create one</a></p>
+    </form>
+</body>
+</html>

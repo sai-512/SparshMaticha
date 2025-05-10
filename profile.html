@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f1ea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ✅ Navbar Styling */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        /* ✅ Profile Container */
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .profile-box {
+            width: 100%;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid #6D4C41;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        /* ✅ Profile Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #6D4C41;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* ✅ Font Awesome Profile Icon */
+        .profile-icon {
+            font-size: 50px;
+            color: #6D4C41;
+        }
+
+        .profile-header h1 {
+            color: #333;
+            font-size: 24px;
+            font-family: 'Georgia', serif;
+            margin: 0;
+        }
+
+        .profile-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .profile-details p {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        /* ✅ Recent Order & Orders Section */
+        .orders-section {
+            border-top: 2px solid #6D4C41;
+            padding-top: 15px;
+        }
+
+        .orders-section h2 {
+            font-size: 20px;
+            color: #6D4C41;
+            margin-bottom: 10px;
+        }
+
+        /* ✅ My Orders Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #6D4C41;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1e7d0;
+        }
+
+        /* ✅ Logout Button */
+        .logout-btn {
+            width: 120px;
+            padding: 10px;
+            background-color: #8B4513;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: 0.3s;
+            border: 2px solid #D2B48C;
+            display: block;
+            margin: auto;
+            margin-top: 15px;
+        }
+
+        .logout-btn:hover {
+            background-color: #5A2D0C;
+        }
+
+        /* ✅ Responsive Design */
+        @media (max-width: 768px) {
+            .profile-container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('shop') }}">Shop</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+        </div>
+    </div>
+
+    <!-- ✅ Profile Section -->
+    <div class="profile-container">
+        <div class="profile-box">
+            <div class="profile-header">
+                <i class="fas fa-user-circle profile-icon"></i>  <!-- ✅ Font Awesome Profile Icon -->
+                <div>
+                    <h1>User Profile</h1>
+                    <p>Welcome back, {{ user[0] }}!</p>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-details">
+                    <p><strong>Name:</strong> {{ user[0] }} {{ user[1] }}</p>
+                    <p><strong>Email:</strong> {{ user[2] }}</p>
+                </div>
+
+                <!-- ✅ Recent Order Section -->
+                <div class="orders-section">
+                    <h2>Recent Order</h2>
+                    {% if recent_order %}
+                        <p><strong>Date:</strong> {{ recent_order[1] }}</p>
+                        <p><strong>Total Amount:</strong> ₹{{ recent_order[2] }}</p>
+                        <p><strong>Status:</strong> {{ recent_order[3] }}</p>
+                    {% else %}
+                        <p>No recent orders found.</p>
+                    {% endif %}
+                </div>
+
+                <!-- ✅ My Orders Table -->
+                <div class="orders-section">
+                    <h2>My Orders</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Order Date</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order[1] }}</td>
+                                <td>₹{{ order[2] }}</td>
+                                <td>{{ order[3] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ✅ Logout Button (Small & Aligned) -->
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Sparsh Maticha</title>
+
+	<!-- favicon -->
+	<!-- Changed -->
+	<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+
+
+
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+
+
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="static/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="static/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="static/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="static/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="static/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="static/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="static/css/responsive.css">
+
+<style>
+/* Header Layout */
+.main-menu-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+/* LOGO - Move to Left */
+.site-logo {
+    margin-right: auto; /* Pushes logo to the far left */
+    margin-left: -180px;
+}
+
+.site-logo img {
+    max-height: 60px;
+    width: auto;
+}
+
+/* MENU - Center Align */
+.main-menu {
+    flex: 1;
+    text-align: center;
+}
+
+.main-menu ul {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+.main-menu ul li {
+    position: relative; /* Important for positioning the submenu */
+    list-style: none;
+}
+
+.main-menu ul li a {
+    text-decoration: none;
+    color: white;  /* Ensure white color */
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Hover & Active State */
+.main-menu ul li a:hover,
+.current-list-item a {
+    color: #8B4513; /* Brown color */
+}
+
+/* Ensure the "Home" link is initially white */
+.main-menu ul li.current-list-item a {
+    color: white !important; /* Force white color initially */
+}
+
+/* Ensure the "Home" link turns orange on hover */
+.main-menu ul li.current-list-item a:hover {
+    color: #8B4513 !important; /* Force orange on hover */
+}
+
+/* Ensure the "Home" link is initially white */
+.main-menu ul li.current-list-item a {
+    color: white; /* Initially white */
+}
+
+/* Ensure the "Home" link turns orange on hover */
+.main-menu ul li.current-list-item a:hover {
+    color: #8B4513; /* Orange on hover */
+}
+
+/* DROPDOWN MENU */
+
+/* Dropdown Menu Container */
+.main-menu ul .sub-menu {
+    display: none;             /* Hidden by default */
+    position: absolute;
+    left: 0;
+    top: 100%;                 /* Positioned directly below the parent */
+    background-color: #fff;    /* White background for the whole dropdown */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 0;                /* Remove default padding */
+    margin: 0;                 /* Remove default margin */
+    list-style: none;          /* Remove bullet points */
+    width: auto;               /* Let width adjust to content */
+}
+
+/* Display submenu on hover or when focused */
+.main-menu ul li:hover .sub-menu,
+.main-menu ul li:focus-within .sub-menu {
+    display: block;
+}
+
+/* Ensure each submenu item is displayed as a block (vertical stacking) */
+.main-menu ul .sub-menu li {
+    display: block;
+    width: 100%;
+}
+
+/* Styling for submenu links */
+.main-menu ul .sub-menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: #000;               /* Black text */
+    background-color: #fff;    /* White background for each item */
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Change background on hover for submenu links */
+.main-menu ul .sub-menu li a:hover {
+    background-color: #fff;    /* White background on hover */
+    color: #000;               /* Black text on hover */
+}
+
+/* Change text color to orange when clicked (active state) */
+.main-menu ul .sub-menu li a:active {
+    color: #FFA500;            /* Orange text when clicked */
+}
+
+/* ICONS - Move to Right */
+.header-icons {
+    display: flex;
+    gap: 1.8rem;
+    margin-left: auto; /* Pushes icons to the far right */
+    margin-right: -80px;
+}
+
+.header-icons a {
+    color: white; /* Ensure search & profile icons are white */
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.header-icons a:hover {
+    color: #8B4513;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .main-menu-wrap {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-menu {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-menu ul {
+        flex-direction: column;
+    }
+
+    .header-icons {
+        justify-content: center;
+    }
+
+    /* Ensure dropdowns appear properly on small screens */
+    .main-menu ul .sub-menu {
+        position: static; /* Change position so it appears within the flow */
+        width: 100%;
+        display: none;
+    }
+
+    .main-menu ul li:hover .sub-menu {
+        display: block; /* Shows submenu when clicked/tapped on mobile */
+    }
+}
+
+
+
+
+
+/* 3️⃣ PRODUCT GRID & LAYOUT */
+
+.products-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Product Card */
+.product-card {
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image */
+.product-img-wrapper {
+  position: relative;
+  padding-top: 100%; /* Square aspect ratio */
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.product-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.product-link:hover .product-img {
+  transform: scale(1.05);
+}
+
+/* Product Details */
+.product-details {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.product-title {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Cart Form */
+.cart-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.quantity-input {
+  width: 70px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1rem;
+  box-sizing: border-box;
+  line-height: 40px;
+}
+
+.btn {
+  height: 40px;
+  padding: 0 1.5rem;
+  border: none;
+  background-color: #8B4513; /* Brown color */
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 40px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #7A3E12; /* Darker brown on hover */
+}
+.view-more-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.view-more-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6d4c41; /* Brownish color for pottery theme */
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-more-btn:hover {
+    background-color: #563d2d; /* Darker shade on hover */
+    transform: scale(1.05);
+}
+
+.abt-bg {
+    width: 100%; /* Full width of the column */
+    height: 350px; /* Adjust height to make it square-like */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px; /* Optional rounded corners */
+}
+
+.abt-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the area properly */
+    border-radius: 10px;
+}
+
+
+
+</style>
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+    <!-- header area -->
+	<div class="top-header-area" id="sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- LOGO (Left Side) -->
+                    <div class="site-logo">
+                        <a href="index">
+                            <img src="static/img/weblogo.png" alt="Logo">
+                        </a>
+                    </div>
+
+                    <!-- MENU (Center) -->
+                    <nav class="main-menu">
+                        <ul>
+                            <li class="current-list-item"><a href="index">Home</a></li>
+                            <li><a href="about">About</a></li>
+                            <li><a href="shop">Shop</a>
+                                <ul class="sub-menu">
+                                    <li><a href="shop">Shop</a></li>
+                                    <!-- <li><a href="checkout">Check Out</a></li> -->
+                                    <li><a href="/cart">Cart</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Pages</a>
+                                <ul class="sub-menu">
+                                    <li><a href="about">About</a></li>
+                                    <li><a href="/cart">Cart</a></li>
+                                    <!-- <li><a href="checkout">Check Out</a></li> -->
+                                    <li><a href="contact">Contact</a></li>
+                                    <li><a href="shop">Shop</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- ICONS (Right Side) -->
+                    <div class="header-icons">
+                        <a class="shopping-cart" href="cart"><i class="fas fa-shopping-cart"></i></a>
+                        <a class="profile-icon" href="profile">
+                            <svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m374 2009c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4m3.758.673c1.366-1.099 2.242-2.783 2.242-4.673 0-3.314-2.686-6-6-6s-6 2.686-6 6c0 1.89.876 3.574 2.242 4.673-3.659 1.375-6.242 4.772-6.242 9.327h2c0-5 3.589-8 8-8s8 3 8 8h2c0-4.555-2.583-7.952-6.242-9.327"
+                                    fill-rule="evenodd" transform="translate(-364 -1999)"/>
+                            </svg>
+                        </a>
+                        <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    </div>
+
+                    <!-- Mobile Menu -->
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- header ends -->
+	
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+						<h3>Search For:</h3>
+							<input type="text" placeholder="Search">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search area -->
+
+	<!-- hero area -->
+	<div class="hero-area hero-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 offset-lg-2 text-center">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">Sustainable and Eco-Friendly</p>
+							<h1>Handcrafted with Love, Inspired by Nature</h1>
+							<div class="hero-btns">
+								<a href="shop" class="boxed-btn">Pottery Collection</a>
+								<a href="contact" class="bordered-btn">Contact Us</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end hero area -->
+
+<div class="list-section pt-80 pb-80">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-leaf"></i>
+							<!-- <i class="fas fa-seedling"></i> -->
+
+
+							<!-- <i class="fas fa-shipping-fast"></i> -->
+						</div>
+						<div class="content">
+							<h3>Eco-Friendly and Sustainable</h3>
+							<p>Made from natural, organic river soil</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<!-- <i class="fas fa-hands"></i> -->
+							<i class="fas fa-hand-holding"></i>
+
+
+							<!-- <i class="fas fa-phone-volume"></i> -->
+						</div>
+						<div class="content">
+							<h3>Authentic Handcrafted Pottery</h3>
+							<p>Every piece uniquely made with care</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="list-box d-flex justify-content-start align-items-center">
+						<div class="list-icon">
+							 <i class="fas fa-shipping-fast"></i>
+						</div>
+						<div class="content">
+							<h3>On-Time Delivery</h3>
+                            <p>We ensure your order arrives when promised.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- end features list section -->
+	<!-- product section -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">Our</span> Products</h3>
+						<p>Every Piece Tells a Story – Browse Our Handcrafted Creations</p>
+					</div>
+				</div>
+			</div>
+</div> 
+
+<div class="products-section">
+  <!-- <h2 class="section-heading">Explore Our Pottery Collection</h2> -->
+  <div class="products-grid">
+    {% for product in data %}
+    <div class="product-card">
+      <a href="{{ url_for('single_product', Product_id=product.Product_id) }}" class="product-link">
+        <div class="product-img-wrapper">
+          <img src="{{ url_for('static', filename=product.Product_image) }}" alt="{{ product.Product_Name }}" class="product-img">
+        </div>
+      </a>
+      <div class="product-details">
+        <h5 class="product-title">{{ product.Product_Name }}</h5>
+        <p class="product-price">₹{{ product.Price }}</p>
+        <form action="{{ url_for('add_to_cart', Product_id=product.Product_id) }}" method="POST" class="cart-form">
+          <input type="number" name="quantity" value="1" min="1" required class="quantity-input">
+          <button type="submit" class="btn add-to-cart-btn">Add to Cart</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br>
+  <br>
+  <!-- HTML for the "View More" button -->
+<div class="view-more-container">
+  <a href="{{ url_for('shop') }}" class="view-more-btn">View More</a>
+</div>
+
+</div>
+
+
+
+<br>
+<br>
+
+
+	<br>
+	<br>
+	<div class="abt-section mb-150">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-bg">
+                    <img src="static/img/about-image.jpg" alt="About Sparsh Maticha" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-text">
+                    <p class="top-sub">Since Year 1999</p>
+                    <h2>Sparsh Maticha</h2>
+                    <p>🏺 Celebrating the Art of Handmade Pottery</p>
+                    <p>For over two decades, we’ve crafted timeless pottery, blending tradition with elegance. Each piece tells a story—shaped by skilled hands, made to last for generations. ✨</p>
+                    <a href="about" class="boxed-btn mt-4">Know More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+	
+	
+	<!-- end advertisement section -->
+	
+	
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>Sparsh Maticha offers handcrafted pottery made from organic river soil, free from harmful chemicals. Our mission is to promote traditional craftsmanship and sustainable living. Each piece is designed with care to bring beauty and health benefits to your home</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>Bapat camp, Kolhapur</li>
+							<li>sparshmaticha@gmail.com</li>
+							<li>+00 111 222 3333</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Pages</h2>
+						<ul>
+							<li><a href="index">Home</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="services">Shop</a></li>
+							
+							<li><a href="contact">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates.</p>
+						<form action="index">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+	<!-- jquery -->
+	<script src="static/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="static/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="static/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="static/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="static/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="static/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="static/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="static/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="static/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="static/js/main.js"></script>
+
+</body>
+</html>

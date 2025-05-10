@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Invoice</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .invoice-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            color: #5C3D2E; /* Brown color */
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #28a745; /* Green color */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .section h3 {
+            font-size: 1.2rem;
+            color: #5C3D2E; /* Brown color */
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 4px solid #5C3D2E; /* Brown color */
+        }
+
+        .details p {
+            font-size: 0.95rem;
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .details strong {
+            color: #333;
+        }
+
+        .address {
+            font-size: 0.95rem;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        /* Order Table */
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .order-table th, .order-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
+        .order-table th {
+            background: #5C3D2E; /* Brown color */
+            color: white;
+            font-weight: 600;
+        }
+
+        .order-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Continue Shopping Button */
+        .continue-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 20px;
+            background: #5C3D2E; /* Brown color */
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            background: #4A2F24; /* Darker brown on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+        <h2>Order Invoice</h2>
+        <p>✅ Your Order is Confirmed!</p>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="section">
+        <h3>Order Summary</h3>
+        <div class="details">
+            <!-- Order ID removed as per instruction -->
+            <p><strong>Order Date:</strong> {{ order[2] }}</p>
+            <p><strong>Total Amount:</strong> ₹{{ order[5] }}</p>
+            <p><strong>Status:</strong> {{ order[6] }}</p>
+        </div>
+    </div>
+
+    <!-- Billing Details -->
+    <!-- Billing Details -->
+<div class="section">
+    <h3>Billing Details</h3>
+    <div class="details">
+        <p><strong>Name:</strong> {{ order[7] }} {{ order[8] }}</p>
+        <p><strong>Email:</strong> {{ order[9] }}</p>
+        <p><strong>Phone:</strong> {{ order[10] }}</p>
+        <p class="address">
+            <strong>Address:</strong> {{ order[11] }}, {{ order[12] }}, {{ order[13] }}, {{ order[14] }}
+        </p>
+        <p><strong>Payment Method:</strong> {{ order[15] }}</p>
+    </div>
+</div>
+
+
+    <!-- Order Items -->
+    <div class="section">
+        <h3>Order Items</h3>
+        <table class="order-table">
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            {% for item in order_items %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>₹{{ item[2] }}</td>
+                <td>₹{{ item[3] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer">Thank you for shopping with us! We appreciate your purchase. 😊</p>
+
+    <!-- Continue Shopping Button -->
+    <a href="{{ url_for('home') }}" class="continue-btn">Continue Shopping</a>
+</div>
+
+</body>
+</html>
